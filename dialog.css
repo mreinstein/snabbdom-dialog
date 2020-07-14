@@ -1,0 +1,66 @@
+.snabbdom-dialog {
+    /*display: none; */
+    opacity: 0;
+    
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    max-width: 95vw;
+    max-height: 95vh;
+    position: fixed;
+    transform-origin: 0 0;
+    z-index: 99999;
+
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
+
+    border: solid 1px #ccc;
+}
+
+
+.snabbdom-dialog.snabbdom-dialog-visible {
+    opacity: 1;
+}
+
+.snabbdom-dialog-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99998;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.snabbdom-dialog-overlay.snabbdom-dialog-visible {
+    display: block;
+}
+
+button.snabbdom-dialog-close {
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+button.snabbdom-dialog-close-inset {
+    top: 16px;
+    right: 16px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    z-index: 1;
+}
+
+button.snabbdom-dialog-close-straddle {
+    right: -12px;
+    top: -12px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid black;
+}

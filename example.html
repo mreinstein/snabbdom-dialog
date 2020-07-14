@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+	<title>Snabbdom Dialog Test</title>
+	<meta name=theme-color content=#303F9F><meta name=viewport content="width=device-width,minimum-scale=1">
+
+    <link rel="stylesheet" href="dialog.css">
+    <style>
+    	body {
+            background-color: whitesmoke;
+
+            /*forces scrolling body, useful for testing scroll freeze */
+            height: 2000px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+Building an accessible, animated, snabbdom based dialog
+
+<script type="module">
+
+import dialog       from './dialog.js';
+import html         from 'https://cdn.jsdelivr.net/npm/snabby@1/snabby.js';
+import normalizeKey from './normalize-key.js';
+
+
+let container = document.createElement('div');
+document.body.appendChild(container);
+
+const model = dialog.init({
+    left: 100,
+    top: 100,
+    width: 300,
+    height: 400,
+    overlayColor: 'rgba(0,0,0, 0.6)'
+});
+
+
+function view (model, update) {
+    const _toggleDisplay = function () {
+        model.open = !model.open;
+        update();
+    }
+
+    // keep focus in the modal. The closeButton is the last element
+    // in the modal, so when we press tab, put focus back at the beginning of the modal
+    const _keydown = function (ev) {
+        if (normalizeKey(ev.key) === 'Tab') {
+            model.dialogEl.focus();
+            ev.preventDefault();
+        }
+    };
+
+    const _insertHook = function (vnode) {
+        model.openerEl = vnode.elm;
+    }
+
+    const content = html`<div tabindex="-1" style="background-color:white; width: 100%; height: 100%; padding: 20px; position: relative; box-sizing: border-box;">
+        <input value="something">
+        <input value="another">
+        <button @on:click=${_toggleDisplay}
+                @on:keydown=${_keydown}
+                class="snabbdom-dialog-close snabbdom-dialog-close-inset">x</button>
+    </div>`;
+
+    const toggleButton = html``;
+
+    return html`<div>
+        <button @hook:insert=${_insertHook}
+                @on:click=${_toggleDisplay}>toggle</button>
+        ${dialog.view(model, content, update)}
+    </div>`;
+}
+
+
+function update () {
+    const newVnode = view(model, update);
+    container = html.update(container, newVnode);
+}
+
+
+update();
+
+</script>
+</body>
+</html>
