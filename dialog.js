@@ -1,4 +1,4 @@
-import html         from 'https://cdn.jsdelivr.net/npm/snabby@1/snabby.js';
+import html         from 'https://cdn.jsdelivr.net/npm/snabby@2/snabby.js';
 import normalizeKey from './normalize-key.js';
 
 
