@@ -1,4 +1,4 @@
-import html         from 'https://cdn.jsdelivr.net/npm/snabby@2/snabby.js';
+import html         from 'https://cdn.skypack.dev/snabby?min';
 import normalizeKey from './normalize-key.js';
 
 
